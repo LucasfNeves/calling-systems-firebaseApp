@@ -4,10 +4,19 @@ import { AuthContext } from '../contexts/auth'
 import { useContext } from 'react'
 
 export function DefaultLayout() {
-  const { user } = useContext(AuthContext)
+  const { user, loading } = useContext(AuthContext)
+
+  if (loading) {
+    // renderizar algum tipo de componente de carregamento
+    return (
+      <div className="flex h-screen w-screen items-center justify-center">
+        Carregando...
+      </div>
+    )
+  }
 
   if (!user) {
-    // renderizar algum tipo de componente de carregamento ou nada
+    // Redirecionar para a página de login
     return <Navigate to="/" replace />
   }
 

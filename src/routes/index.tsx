@@ -7,6 +7,7 @@ import { SignUp } from '../pages/SignUp'
 import { Private } from './Private'
 import { DefaultLayout } from '../layout/defaultLayout'
 import { Profile } from '../pages/Profile'
+import { Customers } from '../pages/Customers'
 
 export const AppRoutes = () => {
   return (
@@ -19,6 +20,14 @@ export const AppRoutes = () => {
           element={
             <Private>
               <Dashboard />
+            </Private>
+          }
+        />
+        <Route
+          path="customers"
+          element={
+            <Private>
+              <Customers />
             </Private>
           }
         />
