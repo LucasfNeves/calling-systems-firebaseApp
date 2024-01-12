@@ -14,7 +14,7 @@ export function Private({ children }: PrivateProps) {
   }
 
   if (!signed) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/" />
   }
 
   return children

@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { Sidebar } from '../components/Sidebar'
 import { AuthContext } from '../contexts/auth'
 import { useContext } from 'react'
@@ -8,7 +8,7 @@ export function DefaultLayout() {
 
   if (!user) {
     // renderizar algum tipo de componente de carregamento ou nada
-    return null
+    return <Navigate to="/" replace />
   }
 
   return (

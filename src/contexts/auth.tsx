@@ -46,9 +46,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [loadingAuth, setLoadingAuth] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  // Controla se o usuário está logado ou não
-  const signed = !!user
-
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -159,6 +156,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         console.log(error)
       })
   }
+
+  // Controla se o usuário está logado ou não
+  const signed = user !== null
 
   return (
     <AuthContext.Provider
