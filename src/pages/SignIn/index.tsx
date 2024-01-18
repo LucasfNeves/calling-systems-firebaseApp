@@ -1,14 +1,28 @@
-import { FormEvent, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import Logo from './../../assets/Logo.svg'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth'
 import { toast } from 'react-toastify'
 import { InputControl, InputPrefix, InputRoot } from '../../components/Input'
-import { Envelope, Eye } from 'phosphor-react'
+import { Envelope, Eye, EyeClosed } from 'phosphor-react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import schemaSignIn from '../../schema/schemaSignIn'
+
+type FormData = {
+  email: string
+  password: string
+}
 
 export function SignIn() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schemaSignIn),
+  })
+
   const [viewPassword, setViewPassword] = useState(false)
 
   function handleViewPassword() {
@@ -17,14 +31,13 @@ export function SignIn() {
 
   const { signIn, loadingAuth } = useContext(AuthContext)
 
-  function handleSignIn(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-
-    if (email === '' || password === '') {
-      toast.error('Preencha todos os campos!')
+  function handleSignIn(data: FormData) {
+    if (data.email === '' || data.password === '') {
+      toast.error('Preencha todos os campos')
+      return
     }
 
-    signIn(email, password)
+    signIn(data.email, data.password)
   }
 
   return (
@@ -34,7 +47,7 @@ export function SignIn() {
           <img className="h-[80%] w-[20%]" src={Logo} alt="Logo" />
         </div>
         <form
-          onSubmit={handleSignIn}
+          onSubmit={handleSubmit(handleSignIn)}
           className="mt-4 flex h-full w-full flex-col gap-4 px-6"
         >
           <h1 className="w-full text-center text-3xl font-semibold text-violet-950">
@@ -49,31 +62,39 @@ export function SignIn() {
               <InputControl
                 id="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Digite seu E-mail"
+                placeholder="Digite seu email"
+                {...register('email')}
               />
             </InputRoot>
+            {errors.email && (
+              <span className=" text-sm text-red-600">
+                {errors.email.message}
+              </span>
+            )}
           </label>
           <label htmlFor="password" className="flex flex-col gap-2">
             Digite sua senha
             <InputRoot>
               <InputPrefix>
-                <Eye
-                  size={22}
-                  className="cursor-pointer"
-                  onClick={handleViewPassword}
-                />
+                {viewPassword ? (
+                  <EyeClosed size={22} onClick={handleViewPassword} />
+                ) : (
+                  <Eye size={22} onClick={handleViewPassword} />
+                )}
               </InputPrefix>
               <InputControl
                 id="password"
                 {...(viewPassword ? { type: 'text' } : { type: 'password' })}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register('password', { required: true })}
                 placeholder="Digite sua senha"
                 autoComplete="off"
               />
             </InputRoot>
+            {errors.password && (
+              <span className=" text-sm text-red-600">
+                {errors.password.message}
+              </span>
+            )}
           </label>
           <button
             className="h-11 w-full rounded-md bg-violet-950  text-zinc-200  shadow-md  transition duration-300 ease-in-out hover:bg-violet-800"

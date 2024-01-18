@@ -9,6 +9,9 @@ export default {
       gridTemplateColumns: {
         app : '12.5rem 1fr',
       },
+      backgroundColor: {
+        modal : 'rgba(0,0,0,0.6)',
+      }
     },
   },
   plugins: [],

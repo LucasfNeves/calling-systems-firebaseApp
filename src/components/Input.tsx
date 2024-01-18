@@ -8,7 +8,7 @@
  * Isso permite que o componente Input seja mais flexível, pois cada uma das partes menores podem ser usadas separadamente.
  */
 
-import { ComponentProps } from 'react'
+import React, { ComponentProps } from 'react'
 
 type inputPrefixProps = ComponentProps<'div'>
 
@@ -16,16 +16,22 @@ export function InputPrefix(props: inputPrefixProps) {
   return <div className="absolute right-3 " {...props} />
 }
 
-type InputControlProps = ComponentProps<'input'>
-
-export function InputControl(props: InputControlProps) {
-  return (
-    <input
-      {...props}
-      className="w-full flex-1 px-4 font-normal text-zinc-700 outline-none placeholder:font-normal placeholder:text-zinc-500 focus:ring-0"
-    />
-  )
+export type InputControlProps = ComponentProps<'input'> & {
+  prefix?: React.ReactNode
 }
+
+export const InputControl = React.forwardRef<
+  HTMLInputElement,
+  InputControlProps
+>((props, ref) => (
+  <input
+    {...props}
+    ref={ref}
+    className="w-full flex-1 px-4 font-normal text-zinc-700 outline-none placeholder:font-normal placeholder:text-zinc-500 focus:ring-0"
+  />
+))
+
+InputControl.displayName = 'InputControl'
 
 export type InputRootProps = ComponentProps<'div'>
 

@@ -102,21 +102,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function signUp(email: string, password: string, nome: string) {
     setLoadingAuth(true)
+    const trimmedEmail = email.trim()
 
-    await createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, trimmedEmail, password)
       .then(async (userCredential) => {
         const userUid = userCredential.user.uid
 
         await setDoc(doc(db, 'users', userUid), {
           nome,
           avatarUrl: null,
-          email,
+          email: trimmedEmail,
         }).then(() => {
           const data = {
             uid: userUid,
             nome,
             avatarUrl: null,
-            email,
+            email: trimmedEmail,
           }
           setLoadingAuth(false)
           toast.success(

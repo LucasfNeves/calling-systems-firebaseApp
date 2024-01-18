@@ -24,6 +24,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '../../services/firebaseConections'
 import { format } from 'date-fns'
+import { Modal } from '../../components/Modal'
 
 interface Chamado {
   id: string
@@ -44,6 +45,8 @@ export function Dashboard() {
   const [lastDoc, setLastDoc] =
     useState<QueryDocumentSnapshot<Chamado, DocumentData>>()
   const [loadMore, setLoadMore] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [details, setDetails] = useState<Chamado>()
 
   useEffect(() => {
     const listRef = collection(db, 'tickets')
@@ -123,6 +126,11 @@ export function Dashboard() {
     await updateState(querySnapshot as QuerySnapshot<Chamado>).then(() => {
       setLoadMore(false)
     })
+  }
+
+  function handleShowModal(item: Chamado) {
+    setShowModal(!showModal)
+    setDetails(item)
   }
 
   if (loading) {
@@ -220,6 +228,7 @@ export function Dashboard() {
                             <button
                               className="rounded-md bg-blue-600 p-2 transition-colors duration-300 ease-in-out hover:bg-blue-500"
                               type="button"
+                              onClick={() => handleShowModal(item)}
                             >
                               <MagnifyingGlass
                                 size={17}
@@ -259,6 +268,10 @@ export function Dashboard() {
           </button>
         )}
       </div>
+
+      {showModal && (
+        <Modal close={() => setShowModal(!showModal)} content={details} />
+      )}
     </>
   )
 }
