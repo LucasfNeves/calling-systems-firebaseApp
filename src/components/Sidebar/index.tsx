@@ -28,7 +28,7 @@ export function Sidebar() {
         <NavItem
           route={'customers'}
           icon={<Users size={24} weight="fill" className=" hidden lg:block" />}
-          text={'customers'}
+          text={'Clientes'}
         />
         <NavItem
           route={'profile'}
