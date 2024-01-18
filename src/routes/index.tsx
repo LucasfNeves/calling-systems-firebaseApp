@@ -8,6 +8,7 @@ import { Private } from './Private'
 import { DefaultLayout } from '../layout/defaultLayout'
 import { Profile } from '../pages/Profile'
 import { Customers } from '../pages/Customers'
+import { New } from '../pages/New'
 
 export const AppRoutes = () => {
   return (
@@ -36,6 +37,22 @@ export const AppRoutes = () => {
           element={
             <Private>
               <Profile />
+            </Private>
+          }
+        />
+        <Route
+          path="new/:id"
+          element={
+            <Private>
+              <New />
+            </Private>
+          }
+        />
+        <Route
+          path="new"
+          element={
+            <Private>
+              <New />
             </Private>
           }
         />
