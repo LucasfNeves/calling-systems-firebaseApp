@@ -43,11 +43,11 @@ export function PhotoInput({ avatarUrl, handleFile }: PhotoInputProps) {
         className="absolute bottom-[50%] left-0 right-0 top-[50%]  flex cursor-pointer items-center justify-center "
         htmlFor="uploadPhoto"
       >
-        <div className="z-50 rounded-full bg-violet-200 bg-opacity-10 p-1 transition duration-300 ease-in-out group-hover:bg-violet-900">
+        <div className="z-50 rounded-full bg-violet-200 bg-opacity-0 p-1 transition duration-300 ease-in-out group-hover:bg-violet-900">
           <UploadSimple
             size={25}
             weight="fill"
-            className="text-violet-900 opacity-50 transition duration-300 ease-in-out group-hover:text-violet-100 group-hover:opacity-100"
+            className="text-violet-900 opacity-0 transition duration-300 ease-in-out group-hover:text-violet-100 group-hover:opacity-100"
           />
         </div>
       </label>
