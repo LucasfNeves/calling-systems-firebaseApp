@@ -3,7 +3,7 @@
 Um Sistema de Gestão de Chamados, aplicação desenvolvida para otimizar a organização e administração eficiente de chamados em uma empresa para registrar, monitorar e atualizar informações relacionadas a chamados.
 Desenvolvido com tecnologias modernas, o Sistema de Gestão de Chamados oferece uma solução robusta para empresas que buscam aprimorar sua gestão de serviços e suporte ao cliente.
 
-![Acesse aqui o projeto](https://calling-systems-firebase-app.vercel.app/)
+[Acesse aqui o projeto](https://calling-systems-firebase-app.vercel.app/)
 
 ## Autenticação de Usuário: 
 - Sistema de login seguro com cadastro de usuários, exigindo nome, email e senha.
